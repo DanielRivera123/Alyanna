@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Opportunities - Nursing Volunteer Community</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-heart-pulse me-2"></i>
+                NurseVolunteer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stories.html">
+                            <i class="fas fa-book-open me-1"></i>Stories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html">
+                            <i class="fas fa-search me-1"></i>Find Opportunities
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Header Section -->
+        <section class="bg-primary text-white py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-5 fw-bold mb-3">
+                            <i class="fas fa-search me-3"></i>
+                            Find Volunteer Opportunities
+                        </h1>
+                        <p class="lead">
+                            Discover meaningful volunteer opportunities that match your nursing skills and interests.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <i class="fas fa-hands-helping fa-5x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="py-4 bg-light">
+            <div class="container">
+                <form id="searchForm" class="search-form">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label for="location" class="form-label">
+                                <i class="fas fa-map-marker-alt me-1"></i>Location
+                            </label>
+                            <input type="text" class="form-control" id="location" name="location" 
+                                   placeholder="Enter city, state, or country">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="category" class="form-label">
+                                <i class="fas fa-tags me-1"></i>Category
+                            </label>
+                            <select class="form-select" id="category" name="category">
+                                <option value="">All Categories</option>
+                                <option value="Emergency Care">Emergency Care</option>
+                                <option value="Pediatric Care">Pediatric Care</option>
+                                <option value="Maternal Health">Maternal Health</option>
+                                <option value="Community Health">Community Health</option>
+                                <option value="Education">Education</option>
+                                <option value="Primary Care">Primary Care</option>
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="Disaster Relief">Disaster Relief</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="commitment" class="form-label">
+                                <i class="fas fa-clock me-1"></i>Commitment
+                            </label>
+                            <select class="form-select" id="commitment" name="commitment">
+                                <option value="">All Types</option>
+                                <option value="short-term">Short-term</option>
+                                <option value="long-term">Long-term</option>
+                                <option value="part-time">Part-time</option>
+                                <option value="full-time">Full-time</option>
+                                <option value="one-time">One-time</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-1"></i>Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="py-5">
+            <div class="container">
+                <!-- Results Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>
+                        <i class="fas fa-list me-2"></i>
+                        Available Opportunities
+                        <span class="badge bg-secondary ms-2" id="resultsCount">12</span>
+                    </h3>
+                    
+                    <button id="clearFilters" class="btn btn-outline-secondary d-none">
+                        <i class="fas fa-times me-1"></i>Clear Filters
+                    </button>
+                </div>
+
+                <!-- Active Filters -->
+                <div id="activeFilters" class="mb-4 d-none">
+                    <h6 class="text-muted mb-2">Active Filters:</h6>
+                    <div id="filterTags" class="d-flex flex-wrap gap-2">
+                        <!-- Filter tags will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- Opportunities Grid -->
+                <div class="row" id="opportunitiesGrid">
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="peru" data-category="Pediatric Care" data-commitment="long-term">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Pediatric Nurse - Remote Health Clinic</h5>
+                                    <span class="badge bg-primary">Pediatric Care</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>Global Health Partners</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Amazon Basin, Peru
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Long-term
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted January 10, 2024
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Join our team providing essential healthcare to indigenous children in remote areas of the Amazon rainforest. Experience includes vaccination programs and basic medical care.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">Valid nursing license, pediatric experience preferred, Spanish language skills helpful...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:contact@globalhealthpartners.org?subject=Volunteer Inquiry: Pediatric Nurse" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="various" data-category="Emergency Care" data-commitment="short-term">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Emergency Response Nurse</h5>
+                                    <span class="badge bg-primary">Emergency Care</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>Doctors Without Borders</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Various Locations
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Short-term
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted January 8, 2024
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Seeking experienced nurses for emergency response missions in crisis zones. Provide life-saving care in challenging environments around the world.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">5+ years emergency nursing experience, international travel willingness, crisis management training...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:recruitment@msf.org?subject=Volunteer Inquiry: Emergency Response Nurse" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="ghana" data-category="Education" data-commitment="full-time">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Community Health Educator</h5>
+                                    <span class="badge bg-primary">Education</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>Peace Corps Health Initiative</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Rural Ghana
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Full-time
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted January 5, 2024
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Develop and implement health education programs for rural communities. Focus on maternal health, disease prevention, and basic health literacy.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">Bachelor's in nursing or public health, education experience, cultural sensitivity training...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:health@peacecorps.gov?subject=Volunteer Inquiry: Community Health Educator" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="usa" data-category="Primary Care" data-commitment="part-time">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Mobile Clinic Coordinator</h5>
+                                    <span class="badge bg-primary">Primary Care</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>Remote Area Medical</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Appalachian Region, USA
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Part-time
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted January 3, 2024
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Lead mobile healthcare units providing essential services to underserved rural communities. Coordinate with local volunteers and healthcare providers.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">RN license, leadership experience, rural health experience preferred, flexible schedule...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:volunteers@ramusa.org?subject=Volunteer Inquiry: Mobile Clinic Coordinator" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="bangladesh" data-category="Maternal Health" data-commitment="long-term">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Maternal Health Specialist</h5>
+                                    <span class="badge bg-primary">Maternal Health</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>UNFPA Bangladesh</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Dhaka, Bangladesh
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Long-term
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted December 28, 2023
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Support maternal health programs in refugee camps and rural areas. Provide training to local midwives and improve birth outcomes.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">Certified nurse-midwife, international experience, Bengali language skills preferred...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:bangladesh@unfpa.org?subject=Volunteer Inquiry: Maternal Health Specialist" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-4 mb-4" data-location="ukraine" data-category="Mental Health" data-commitment="short-term">
+                        <div class="card h-100 shadow-sm opportunity-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="card-title mb-0">Mental Health Support Nurse</h5>
+                                    <span class="badge bg-primary">Mental Health</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="opportunity-meta mb-3">
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-building me-1"></i>
+                                        <strong>International Rescue Committee</strong>
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        Lviv, Ukraine
+                                    </p>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Short-term
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Posted December 25, 2023
+                                    </p>
+                                </div>
+                                
+                                <div class="opportunity-description">
+                                    <p class="card-text">Provide mental health support to war-affected populations. Work with displaced families and trauma survivors in community centers.</p>
+                                </div>
+                                
+                                <div class="requirements-preview mt-3">
+                                    <h6 class="small text-muted mb-1">Requirements:</h6>
+                                    <p class="small text-muted">Psychiatric nursing experience, trauma counseling training, crisis intervention skills...</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary btn-sm details-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#opportunityModal">
+                                        <i class="fas fa-info-circle me-1"></i>Details
+                                    </button>
+                                    <a href="mailto:ukraine@rescue.org?subject=Volunteer Inquiry: Mental Health Support Nurse" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Apply
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div id="noResults" class="text-center py-5 d-none">
+                    <i class="fas fa-search fa-5x text-muted mb-4"></i>
+                    <h3 class="text-muted">No Opportunities Found</h3>
+                    <p class="text-muted">No volunteer opportunities match your current search criteria. Try adjusting your filters or check back later for new opportunities.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">
+                        <i class="fas fa-heart-pulse me-2"></i>
+                        NurseVolunteer Community
+                    </h5>
+                    <p class="text-muted">Connecting nursing professionals with meaningful volunteer opportunities worldwide.</p>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="stories.html" class="text-muted text-decoration-none">Volunteer Stories</a></li>
+                        <li><a href="search.html" class="text-muted text-decoration-none">Find Opportunities</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted">
+                <small>&copy; 2025 NurseVolunteer Community. Making a difference together.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Opportunity Detail Modal -->
+    <div class="modal fade" id="opportunityModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="opportunityModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="opportunityModalBody">
+                    <!-- Opportunity details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Close
+                    </button>
+                    <a href="#" id="applyButton" class="btn btn-primary">
+                        <i class="fas fa-envelope me-2"></i>Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+</body>
+</html>
